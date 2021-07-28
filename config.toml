@@ -4,15 +4,39 @@ defaultContentLanguage = "en"
 # language code
 languageCode = "en"
 title = "Visual Datalytics"
+enableEmoji = true
 
 # Change the default theme to be use when building the site with Hugo
 theme = "DoIt"
-
+ # Menu config
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        # you can add extra information before the name (HTML format is supported), such as icons
+        pre = ""
+        # you can add extra information after the name (HTML format is supported), such as icons
+        post = ""
+        name = "Posts"
+        url = "/posts/"
+        # title will be shown when you hover on this menu link.
+        title = ""
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "about"
+        pre = ""
+        post = ""
+        name = "About"
+        url = "/about/"
+        title = ""
+        weight = 2
+        
+        
+        
 [params]
   #  DoIt theme version
   version = "0.2.X"
   # site description
-  description = "This is My New Hugo Site"
+  description = "This is the portfolio of a data scientist"
   # site keywords
   keywords = ["Theme", "Hugo"]
   #  site default theme ("light", "dark", "black", "auto")
@@ -87,13 +111,12 @@ theme = "DoIt"
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Visual Datalytics"
+      name = "Visual Datalytics. "
       # you can add extra information before the name (HTML format is supported), such as icons
-      pre = ""
-      # you can add extra information after the name (HTML format is supported), such as icons
-      post = ": Story telling and beautiful data visualization"
+      pre = "<i class='fas fa-chart-pie'></i>"   # you can add extra information after the name (HTML format is supported), such as icons
+      post = "Story telling and beautiful data visualization"
       #  whether to use typeit animation for title name
-      typeit = true
+      typeit = false
 
   # Footer config
   [params.footer]
@@ -238,7 +261,7 @@ theme = "DoIt"
     #  whether to hide a page from search results
     hiddenFromSearch = false
     #  whether to enable twemoji
-    twemoji = false
+    twemoji = true
     # whether to enable lightgallery
     lightgallery = false
     #  whether to enable the ruby extended syntax
@@ -264,6 +287,7 @@ theme = "DoIt"
     #  KaTeX mathematical formulas
     [params.page.math]
       enable = true
+      
       # default block delimiter is $$ ... $$ and \\[ ... \\]
       blockLeftDelimiter = ""
       blockRightDelimiter = ""
@@ -298,11 +322,11 @@ theme = "DoIt"
       fullscreen = true
     #  social share links in post page
     [params.page.share]
-      enable = true
-      Twitter = true
-      Facebook = true
+      enable = false
+      Twitter = false
+      Facebook = false
       Linkedin = false
-      Whatsapp = true
+      Whatsapp = false
       Pinterest = false
       Tumblr = false
       HackerNews = false
@@ -310,19 +334,19 @@ theme = "DoIt"
       VK = false
       Buffer = false
       Xing = false
-      Line = true
+      Line = false
       Instapaper = false
       Pocket = false
       Digg = false
       Stumbleupon = false
       Flipboard = false
-      Weibo = true
+      Weibo = false
       Renren = false
-      Myspace = true
-      Blogger = true
+      Myspace = false
+      Blogger = false
       Baidu = false
       Odnoklassniki = false
-      Evernote = true
+      Evernote = false
       Skype = false
       Trello = false
       Mix = false
