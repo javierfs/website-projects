@@ -2,12 +2,12 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>www.visualdatalytics.com/categories/analysis/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/categories/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/tags/machine-learning/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/posts/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/tags/r/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/tags/stats/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/tags/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/posts/first_post/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url><url>
-            <loc>www.visualdatalytics.com/</loc><lastmod>2021-07-05T20:51:48&#43;02:00</lastmod></url></urlset>
+            <loc>www.visualdatalytics.com/about/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>www.visualdatalytics.com/2021-07-07-analyzing-playlists-introduction/</loc><lastmod>2021-07-07T15:35:35&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>www.visualdatalytics.com/posts/</loc><lastmod>2021-07-07T15:35:35&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>www.visualdatalytics.com/</loc><lastmod>2021-07-07T15:35:35&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>www.visualdatalytics.com/2021-07-06-analyzing-advertisements-of-a-marketplace/</loc><lastmod>2021-07-06T15:49:01&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>www.visualdatalytics.com/authors/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>www.visualdatalytics.com/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>www.visualdatalytics.com/series/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>www.visualdatalytics.com/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
