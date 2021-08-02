@@ -1,4 +1,4 @@
-baseURL = "www.visualdatalytics.com"
+baseURL = ""
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
