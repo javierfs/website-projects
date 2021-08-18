@@ -469,7 +469,7 @@ theme = "DoIt"
   #  TypeIt config
   [params.typeit]
     # typing speed between each step (measured in milliseconds)
-    speed = 100
+    speed = 80
     # blinking speed of the cursor (measured in milliseconds)
     cursorSpeed = 1000
     # character used for the cursor (HTML format is supported)

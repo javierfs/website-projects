@@ -1,5 +1,5 @@
 ---
-title: 'Analyzing Playlists. Part I: Introduction'
+title: 'Analyzing Playlists. Part I: Introduction, EDA & Relationships'
 author: Javier Fernandez
 date: '2021-07-07'
 slug: []
@@ -8,7 +8,7 @@ tags: []
 subtitle: ''
 lastmod: '2021-07-07T15:35:35+02:00'
 authors: []
-description: ''
+description: "Streaming music platforms have changed our ways to consume music. Listeners would like to discover music that is easily accessible and has been selected personally. This is achieved by the use of playlists.\n In this project, I analyze statistically music data to create successful playlists."
 series: []
 hiddenFromHomePage: no
 hiddenFromSearch: no
@@ -17,9 +17,10 @@ featuredImagePreview: ''
 toc:
   enable: yes
 math: true
-lightgallery: no
+lightgallery: yes
 license: ''
 ---
+
 
 <!--more-->
 
@@ -38,8 +39,10 @@ In this project, I analyze a dataset including playlists with related characteri
 The roadmap that I will follow is depicted below :(far fa-hand-point-down):
 
 
+<!-- //<center><img src="01-roadmap.png" alt="first-eda" //width="1024"/></center> -->
+<!-- // -->
 
-<center><img src="01-roadmap.png" alt="first-eda" width="1024"/></center>
+![](01-roadmap.png "Roadmap of the project")
 
 # Defining Success 
 
@@ -136,23 +139,20 @@ In this stage, I will focus on particular features. I will discuss relationships
 
 In this first section of the exploratory analysis, I will focus on describing the distribution of one of the sucess metrics. Particularly, I will show how the playlists are distributed by monthly streams from the listeners perspective:
 
-<center>
-  <img src="monthly_streams_creators.png" alt="pos-sent" width="1024"/>
-  <figcaption> 
-    <h4>Fig 1. Stripplot showing the distribution of the monthly streams (>30s) from listeners and the type of <i>creator</i>. Each green data point corresponds to a single playlist. There is 399 Spotify playlists while the rest were created by independent users.</h4>  
-  </figcaption></h4>  
-</center>
+
+
+
+
+![](monthly_streams_creators.png "Fig 1. Stripplot showing the distribution of the monthly streams (>30s) from listeners and the type of creator. Each green data point corresponds to a single playlist. There is 399 Spotify playlists while the rest were created by independent users.")
 
 As mentioned, the playlists has two types of owners: Spotify (the own music platform) and independent users. According to the distribution of the data, the vast majority of the playlists are concentrated in a range below 250.000 monthly streams. From this chart, you can see that playlists from Spotify reaches higher number of streams and particularly there is two _Superstar_ playlists that has >40M streams! Looking at its characteristics, we can figure out that those playlists are two of the current 50 and 100 top hits songs. Probably these are heavily curated and I will consider them as outliers in the future stages of this analysis. 
 
 As a first hint on where are the playlists concentrated when it comes to monthly streams, I want to investigate a bit further and show the proportion of playlists across different monthly stream ranges to identify those playlists with very few engagement. Furthermore, I will analyze the monthly active users of the playlists.
 
-<center>
-  <img src="first_eda_numbers.png" alt="first-eda" width="1024"/>
-  <figcaption> 
-    <h4>Fig 2. Barcharts showing the percentage of playlists over monthly streams (>30s) from listeners ranges (top) and monthly active users (MAU) ranges (middle). The bottom barchart shows the number of MAU of the top 15 most streamed playlists.</h4>  
-  </figcaption></h4>  
-</center>
+![](first_eda_numbers.png "Fig 2. Barcharts showing the percentage of playlists over monthly streams (>30s) from listeners ranges (top) and monthly active users (MAU) ranges (middle). The bottom barchart shows the number of MAU of the top 15 most streamed playlists.")
+
+
+
 
 As shown above, there is more than 30% of the playlists in the dataset with less than 10 monthly streams. Besides, there is more than 60% of the playlisyt with less than 3 monthly active users. If we compare these numbers, we observe that the top most streamed playlists have 100,000x the size of more than 60% of the playlists. These are massive ranges, and as we are interested in the most successful playlists, I will discard playlists with:
 - Less than 3 monthly active users.
@@ -160,18 +160,17 @@ As shown above, there is more than 30% of the playlists in the dataset with less
 
 This will leave the analysis with 102,891 playlists in total.
 
+## Studying Linear Relationships
 ### Are the number of tracks, artists and albums a good predictor for high number of monthly streams?
 
 In the following section I will discuss the linear relationship between the number of tracks, artists, albums and tokens with the number of monthly streams from the listeners. As these numbers are huge, both axis will be displayed in logarithmic scale. 
 
 I will start analyzing the relationship of the number of tracks and the streams:
 
-<center>
-  <img src="scatter_tracks_monthly_listeners_robust.png" alt="tracks_streams" width="700" align=center/>
-  <figcaption> 
-    <h4>Fig 3. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>tracks</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.</h4>  
-  </figcaption>
-</center>
+
+![](scatter_tracks_monthly_listeners_robust.png "Fig 3. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>tracks</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.")
+
+
 
 {{< admonition type=info title="Statistical Concepts" open=true >}}
 - **Hypothesis testing**: Determine whether there is enough statistical evidence in favor of a certain belief, or hypothesis, about a parameter. It is common to test two hypothesis:
@@ -201,28 +200,30 @@ Classic inferential methods like the ANOVA $ F $-test or the $ t $-test assume n
 
 
 
-The Winsorised Pearson’s correlation test revealed that, across 102,891 playlists, a measure of number of tracks was positively correlated with monthly listeners streams >30s, and this effect was statistically significant ($p<0.05$). The effect size ($ \hat{r}_{Winsorized} =0.17 $) is small as per Funder & Ozer (2019) conventions.
+The Winsorised Pearson’s correlation test revealed that, across 102,891 playlists, a measure of number of tracks was positively correlated with monthly listeners streams >30s, and this effect was statistically significant ($p<0.05$). The effect size ($ \hat{r}_{Winsorized} = 0.17 $) is small as per Funder & Ozer (2019) conventions.
 
 Regarding the number of artists and albums, you can also observe there is a statistically significant positive correlation with monthly streams: 
 
-<center>
-  <img src="scatter_artists_monthly_listeners_robust.png" alt="tracks_streams" width="700"/>
-  <figcaption> 
-    <h4>Fig 4. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>artists</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.</h4>  
-  </figcaption>
-</center>
+![](scatter_artists_monthly_listeners_robust.png "Fig 4. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>artists</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.")
 
-As before, the effect size is small $ \hat{r}_{Winsorized} =0.11 $
+![](scatter_albums_monthly_listeners_robust.png "Fig 5. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>albums</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.")
 
-<center>
-  <img src="scatter_albums_monthly_listeners_robust.png" alt="tracks_streams" width="700"/>
-  <figcaption>
-    <h4>Fig 5. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>albums</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.
-    </h4>  
-  </figcaption>
-</center>
+The effect size for the previous relationships are $ \hat{r}_{Winsorized} = 0.11 $ and $ 0.12 $ respectively, which is considered to be small and therefore showing a no clear linear relationship between the number of streams and the number of tracks, artists and albums in a playlists.
 
-The same happens with the number of albums: $ \hat{r}_{Winsorized} =0.12 $, having a small size effect.
+
+## Studying Non-Linear Relationships
+
+As it is evident there is no clear relationships in the previous analysis, I will discuss the non-linearity relationships between these variables. To achieve this, I apply a local regression to a randomized subset of the data to computational costs. The method is called [LOESS](http://r-statistics.co/Loess-Regression-With-R.html) Regression and it is the most common method used to smoothen a volatile time series. It is a non-parametric methods where least squares regression is performed in localized subsets, which makes it a suitable candidate for smoothing any numerical vector. 
+
+![](non_linear_streams_n_tracks.png  "Fig 6. Scatterplot along with the curve resulted of fitting a LOESS regression between the monthly streams (>30s) from listeners and the number of <i>tracks</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values.")
+
+![](non_linear_streams_n_artists.png  "Fig 7. Scatterplot along with the curve resulted of fitting a LOESS regression between the monthly streams (>30s) from listeners and the number of <i>artists</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values.")
+
+![](non_linear_streams_n_albums.png  "Fig 8. Scatterplot along with the curve resulted of fitting a LOESS regression between the monthly streams (>30s) from listeners and the number of <i>albums</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values.")
+
+The results of the fitting curves verifies again that there is no clear relationships between the number of streams and the number of albums and artists (considering variable against variable). However, the local regression resulted after fitting the data of the streams and artists shows a more visible pattern: the number of streams increases until the number of tracks reaches around 10000, then start decreasing. 
+
+
 ## Qualitative description of the dataset 
 
 In this second part of the data exploration I will visualize the data related to qualitative features of the playlists. 
@@ -252,35 +253,33 @@ As you see, the most positive scores refers to words related to music, children,
 
 ### Is the sentiment polarity score a good indicator on predicting the monthly streams? 
 
-In this section I apply another linear regression to discuss the relationship between two variables. Is having more positives words related to achieving more streams? is it the other way around? or describing the playlists with positive or negative words is useless at all?
+In this section I apply first a linear and then a non-linear regression to discuss the relationship between two variables. Is having more positives words related to achieving more streams? is it the other way around? or describing the playlists with positive or negative words is useless at all?
 
-<center>
-  <img src="scatter_polarity_monthly_listeners_robust.png" alt="sentiment_monthly_streams" width="800"/>
-  <figcaption>
-    <h4>Fig 6. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the <i>polarity score</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.
-    </h4>  
-  </figcaption>
-</center>
+![](scatter_polarity_monthly_listeners_robust.png "Fig 9. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the <i>polarity score</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.")
+
 
 In the graph you can see a slightly positive correlation between the polarity or sentiment score and the monthly streams. This is statistically significant ($p<0.05$) but the effect size ($ \hat{r}_{Winsorized} =0.01 $) is small.
 
-Even though the effect size of the correlation of these two variables is very small, the other statistical tests shows that the polarity score could be an important factor in the playlist discovery experience for the user and therefore I will keep this feature for the next analysis.
+Linear regression does not show any relationship between the polarity score and the streams, what about LOESS?
+
+![](non_linear_streams_sentiment_score.png "Fig 10. Scatterplot along with the curve resulted of fitting a LOESS regression between the monthly streams (>30s) from listeners and the <i>polarity score</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values.")
+
+Once again, it is clear that the polarity score does not affect the number of monthly streams. 
 
 ### Is the number of tokens a good indicator on predicting the monthly streams?
 
 One may think also that there is an effect of putting more effort on describing the playlists i.e., adding a higher number of tokens. To test this hypothesis I will also study the relationship of these variables:
 
-<center>
-  <img src="scatter_tokens_monthly_listeners_robust.png" alt="tokens_streams" width="750"/>
-  <figcaption>
-    <h4>Fig 7. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>tokens</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.
-    </h4>  
-  </figcaption>
-</center>
+![](scatter_tokens_monthly_listeners_robust.png "Fig 11. Scatterplot along with the curve resulted of fitting a linear regression between the monthly streams (>30s) from listeners and the number of <i>tokens</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot.")
 
 The chart suggest there is a slightly positive correlation between the number of tokens and the monthly listeners, but again there is a small effect size  ($ \hat{r}_{Winsorized} =0.04 $) of this statistical evidence. 
 
 This may suggest that the more effort you put on describing the playlists (by adding more tokens) the more listeners the playlists reach, nonetheless in a low extent. 
+How about fitting a non-linear local regression? 
+
+![](non_linear_streams_n_tokens.png "Fig 12. Scatterplot along with the curve resulted of fitting a LOESS regression between the monthly streams (>30s) from listeners and the number of <i>tokens</i>. Each green data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values.")
+
+In this chart one can observe clearly a pattern showing an exponential increasing curve on the number of streams by adding more tokens to the playlists.
 
 ### Lead genre and mood
 
@@ -288,13 +287,8 @@ These two variables: genres and moods, contains three levels by weights of playl
 
 The percentage of the playlists across different lead gender and mood is displayed below:
 
-<center>
-  <img src="ratio_genre_mood.png" alt="lead_genre_mood" width="750"/>
-<figcaption>
-    <h4>Fig 8. Lollipop plots showing the percentage of playlists across lead mood categories (left) and lead genre categories (right).
-    </h4>  
-  </figcaption>
-</center>
+
+![](ratio_genre_mood.png "Fig 13. Lollipop plots showing the percentage of playlists across lead mood categories (left) and lead genre categories (right).")
 
 The top three most frequent lead moods of the playlists are Defiant, Excited and Yearning, whereas the top lead genders are Indi-Rock, Rap and Pop. 
 
@@ -302,13 +296,8 @@ The top three most frequent lead moods of the playlists are Defiant, Excited and
 
 In the following charts, I show the distribution of the playlists by monthly streams across different lead genre and mood:
 
-<center>
-  <img src="lead_genre_monthlystreams_listenters_log_scale_vertical10_12_robust.png" alt="lead_genre_mood" width="1024"/>
-  <figcaption>
-    <h4>Fig 9. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners across lead <i>genre</i> categories. Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ x-axis $ is shown as a $ 10^x $ format.
-    </h4>  
-  </figcaption>
-</center>
+![](lead_genre_monthlystreams_listenters_log_scale_vertical10_12_robust.png "Fig 14. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners across lead <i>genre</i> categories. Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ x-axis $ is shown as a $ 10^x $ format.")
+
 
 {{< admonition type=info title="Explanatory Measure of The Effect Size: $ \hat{\xi} $" open=true >}}
 - **Effect sizes interpretation according to Wilcox et.al (2012)**: 
@@ -323,13 +312,8 @@ The effect size $ \hat{\xi}=0.19 $ is somewhere between small and medium. In the
 
 
 What about the mood? In the chart shown below you can see a similar visualization containing the distribution of the monthly streams, this time across lead moods:
-<center>
-  <img src="lead_mood_monthlystreams_listenters_log_scale_vertical8_10_robust.png" alt="lead_genre_mood" width="1024"/>
-  <figcaption>
-    <h4>Fig 10. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners across lead <i>mood</i> categories. Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ x-axis $ is shown as a $ 10^x $ format.
-    </h4>  
-  </figcaption>
-  </center>
+
+![](lead_mood_monthlystreams_listenters_log_scale_vertical8_10_robust.png "Fig 15. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners across lead <i>mood</i> categories. Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ x-axis $ is shown as a $ 10^x $ format.")
 
 The robust one-way ANOVA also shows a strong significant evidence ($p<0.05$) that the mean monthly streams across lead mood are different. The top moods are _Tender_, _Lively_ and _Other_. The effect size ($ \hat{\xi}=0.13 $) is small. Again, it might be interesting considering these three moods as related to achieving more streams. 
 
@@ -339,13 +323,8 @@ A thought prior this analysis was related to how variety affects the number of m
 
 In the following chart, I show the distribution of the playlists by monthly streams across different number of genres and moods:
 
-<center>
-  <img src="nmr_moods_genres_monthlystreams_robust.png" alt="moods_genres" width="1024"/>
-  <figcaption>
-    <h4>Fig 11. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners over number of lead <i>genre</i> categories (left) and number of lead <i>mood</i> categories (right). Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ y-axis $ is shown as a $ 10^x $ format. The most significant comparison across number of genre and mood categories are also displayed ($p_{Holm-corrected}$)
-    </h4>  
-  </figcaption>
-</center>
+![](nmr_moods_genres_monthlystreams_robust.png "Fig 16. Violinplot with Boxplot showing the distribution of the monthly streams (>30s) from listeners over number of lead <i>genre</i> categories (left) and number of lead <i>mood</i> categories (right). Each data point corresponds to a single playlist. The data is shown in a log-scaled due to the skewness of the distribution towards very high values. The results of the statistical tests are shown on the top of the plot. The trimmed mean shown in the graph is the result of applying $ log_{10}(\mu_{trimmed}) = \hat{\mu}_{trimmed}  $ to its correspondent value. The $ y-axis $ is shown as a $ 10^x $ format. The most significant comparison across number of genre and mood categories are also displayed ($p_{Holm-corrected}$).")
+
 
 As you can observe, the vast majority of the monthly streams falls in a very low number of monthly streams. However, if you look at the mean of each of the groups you can see that the highest number of monthly streams is connected to the highest number of moods and genres. In other words, variety strengthens the user discovery process. 
 
@@ -373,7 +352,7 @@ After that, I discussed the influence of qualitative data on reaching high numbe
 
 Next, I focused on lead genre and mood. The most frequent genres are Indi-Rock, Rap and Pop whereas Defiant, Excited and Yearning are the most frequent moods. I also tested if any genre and mood category influence the most on achieving higher number of monthly streams. I found statistically significant differences across genre categories: Latin, Children and Traditional are the lead genres that gets higher monthly streams, again with a small-medium size effect. On the other hand Tender, Lively and Other are the lead mood categories on achieving more monthly streams, this time with a small size effect. Going on the genre and mood study, I analysed the number of genres and moods ( _variety proxy_ ). Here I also found statistical differences on higher number of genre and moods and achieving more streams, having a bigger size effect on the number of moods. 
 
-To conclude, despite of finding statistical differences on different hypothesis the size effect of the statistical tests was either small or medium. Therefore there is no conclusive insights to clearly state what characteristics successful playlists have. 
+To conclude, despite of finding statistical differences on different hypothesis the size effect of the statistical tests was either small or medium. Therefore there is no conclusive insights to clearly state what characteristics successful playlists have based on just monthly streams as the sucessful. 
 
 	
 	

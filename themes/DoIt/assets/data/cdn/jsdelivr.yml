@@ -28,6 +28,10 @@ libFiles:
   lightgalleryJS: lightgallery.js@1.4.0/dist/js/lightgallery.min.js
   lightgalleryThumbnailJS: lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js
   lightgalleryZoomJS: lg-zoom.js@1.3.0/dist/lg-zoom.min.js
+  lightgallerymediumZoomJS: lg-zoom.js@1.3.0/dist/lg-zoom.min.js
+  lightgalleryFullScreen: lg-fullscreen@1.2.1/dist/lg-fullscreen.min.js
+  lightgalleryRotate: lg-rotate@1.2.1/dist/lg-rotate.min.js
+
   # clipboard.js@2.0.8 https://github.com/zenorocha/clipboard.js
   clipboardJS: clipboard@2.0.8/dist/clipboard.min.js
   # sharer.js@0.4.1 https://github.com/ellisonleao/sharer.js

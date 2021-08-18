@@ -1,6 +1,6 @@
  $(document).ready(function() {
      let items = [];
-     $('.post-content figure').each(function() {
+     $('.content figure').each(function() {
          if ($(this).attr('class') == 'gallery-ignore') return true; // ignore any figures where class="pswp-ignore"
          // get properties from child a/img/figcaption elements,
          let $figure = $(this),

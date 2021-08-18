@@ -50,15 +50,27 @@
 
 {{- /* lightgallery.js */ -}}
 {{- if $params.lightgallery -}}
+    
     {{- $source := $cdn.lightgalleryCSS | default "lib/lightgallery/lightgallery.min.css" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+    
     {{- $source := $cdn.lightgalleryJS | default "lib/lightgallery/lightgallery.min.js" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    
     {{- $source := $cdn.lightgalleryThumbnailJS | default "lib/lightgallery/lg-thumbnail.min.js" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    
     {{- $source := $cdn.lightgalleryZoomJS | default "lib/lightgallery/lg-zoom.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}} 
+    
+    {{- $source := $cdn.lightgalleryFullScreen | default "lib/lightgallery/lg-fullscreen.min.js" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
-    {{- $config = dict "selector" ".lightgallery" "speed" 400 "hideBarsDelay" 2000 "thumbnail" true "exThumbImage" "data-thumbnail" "thumbWidth" 80 "thumbContHeight" 80 "actualSize" false | dict "lightGallery" | merge $config -}}
+
+    {{- $source := $cdn.lightgalleryRotate | default "lib/lightgallery/lg-rotate.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+
+   
+    {{- $config = dict "selector" ".lightgallery" "enableTouch" true "speed" 400 "hideBarsDelay" 10000 "thumbnail" true "exThumbImage" "data-thumbnail" "thumbWidth" 80 "thumbContHeight" 80 "animateThumb" false "showThumbByDefault" false "allowMediaOverlap" false "actualSize" false  "scale" 0.5 "currentPagerPosition" "right" "fullScreen" true "pullCaptionUp" false "toggleThumb" true| dict "lightGallery" | merge $config -}}
 {{- end -}}
 
 {{- $code := $params.code | default dict -}}

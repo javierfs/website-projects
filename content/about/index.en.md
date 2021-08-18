@@ -2,13 +2,14 @@
 title: About
 weight: -270
 draft: false
-lightgallery: true
+lightgallery: false
 math:
   enable: true
+enableEmoji: true
 ---
 
 <center>
-  <img src="images/about_profile.png" alt="tracks_streams" width="700" align=center/>
+  <img src="images/about_profile.png" width="700" align=center/>
   <figcaption> 
     <h4>This is me!</h4>  
   </figcaption>
