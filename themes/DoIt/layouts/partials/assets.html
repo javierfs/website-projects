@@ -70,7 +70,7 @@
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 
    
-    {{- $config = dict "selector" ".lightgallery" "enableTouch" true "speed" 400 "hideBarsDelay" 10000 "thumbnail" true "exThumbImage" "data-thumbnail" "thumbWidth" 80 "thumbContHeight" 80 "animateThumb" false "showThumbByDefault" false "allowMediaOverlap" false "actualSize" false  "scale" 0.5 "currentPagerPosition" "right" "fullScreen" true "pullCaptionUp" false "toggleThumb" true| dict "lightGallery" | merge $config -}}
+    {{- $config = dict "selector" ".lightgallery" "enableTouch" false "enableDrag" false "speed" 400 "hideBarsDelay" 10000 "thumbnail" true "exThumbImage" "data-thumbnail" "thumbWidth" 80 "thumbContHeight" 80 "animateThumb" false "showThumbByDefault" false "allowMediaOverlap" false "actualSize" false  "scale" 0.5 "currentPagerPosition" "right" "fullScreen" true "pullCaptionUp" false "toggleThumb" true| dict "lightGallery" | merge $config -}}
 {{- end -}}
 
 {{- $code := $params.code | default dict -}}
